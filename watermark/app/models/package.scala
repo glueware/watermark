@@ -54,6 +54,13 @@ package object models {
     (JsPath \ "watermark").writeNullable[String]
   )(unlift(Journal.unapply))
 
+  implicit def documentToJson(document: Document) = {
+    document match {
+      case book: Book       => Json.toJson(book)
+      case journal: Journal => Json.toJson(journal)
+    }
+  }
+
   implicit val ticketReads: Reads[Ticket] = (
     (JsPath \ "id").read[UUID] and
     (JsPath \ "status").read[TicketStatus.Value]

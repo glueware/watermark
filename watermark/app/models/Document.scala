@@ -28,8 +28,6 @@ object Document {
       case e: Throwable => throw new ServerException(play.api.mvc.Results.BadRequest(s"Bad content document"))
     }
   }
-
-  implicit def documentToJson(document: Document) = document.toJson
 }
 
 sealed trait Document {
@@ -39,16 +37,12 @@ sealed trait Document {
 
   // no unified implementation for Book and Journal since copy is generated for case classes
   def watermarked(watermark: String): Document
-
-  def toJson: JsValue
 }
 
 case class Book(title: String, author: String, topic: String, watermark: Option[String] = None) extends Document {
   def watermarked(watermark: String): Document = copy(watermark = Some(watermark))
-  def toJson: JsValue = Json.toJson(this)
 }
 
 case class Journal(title: String, author: String, watermark: Option[String] = None) extends Document {
   def watermarked(watermark: String): Document = copy(watermark = Some(watermark))
-  def toJson: JsValue = Json.toJson(this)
 }
