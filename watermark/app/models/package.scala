@@ -28,17 +28,31 @@ package object models {
     def writes(status: TicketStatus.Value) = JsNumber(status.id)
   }
 
-  implicit val documentReads: Reads[Document] = (
+  implicit val bookReads: Reads[Book] = (
+    (JsPath \ "title").read[String] and
+    (JsPath \ "author").read[String] and
+    (JsPath \ "topic").read[String] and
+    (JsPath \ "watermark").readNullable[String]
+  )(Book.apply _)
+
+  implicit val bookWrites: Writes[Book] = (
+    (JsPath \ "title").write[String] and
+    (JsPath \ "author").write[String] and
+    (JsPath \ "topic").write[String] and
+    (JsPath \ "watermark").writeNullable[String]
+  )(unlift(Book.unapply))
+
+  implicit val journalReads: Reads[Journal] = (
     (JsPath \ "title").read[String] and
     (JsPath \ "author").read[String] and
     (JsPath \ "watermark").readNullable[String]
-  )(Document.apply _)
+  )(Journal.apply _)
 
-  implicit val documentWrites: Writes[Document] = (
+  implicit val journalWrites: Writes[Journal] = (
     (JsPath \ "title").write[String] and
     (JsPath \ "author").write[String] and
     (JsPath \ "watermark").writeNullable[String]
-  )(unlift(Document.unapply))
+  )(unlift(Journal.unapply))
 
   implicit val ticketReads: Reads[Ticket] = (
     (JsPath \ "id").read[UUID] and

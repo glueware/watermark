@@ -51,7 +51,7 @@ class ApplicationSpec extends PlaySpecification with Results {
       }
     }
 
-    step(Thread.sleep((Watermark.processingTime / 2).toMillis))
+    step(Thread.sleep((Watermark.processingTime / 5).toMillis))
 
     "use accepted ticket id and return ticket with status accepted or processing after half of processing time" in {
       implicit val app = FakeApplication()
