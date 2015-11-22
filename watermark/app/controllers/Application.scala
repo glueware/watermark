@@ -23,6 +23,10 @@ import models.Ticket
 import models.ticketReads
 import models.ticketWrites
 
+/**
+ * Action are asynchronous here despite the fact that request processing itself is short because the long lasting watermark process is only started, or status polled.
+ * But for future use this might be interesting.
+ */
 class Application extends Controller {
 
   def accept() = Action.async(BodyParsers.parse.json) { implicit request =>
@@ -56,5 +60,4 @@ class Application extends Controller {
     }
     promise.future
   }
-
 }
