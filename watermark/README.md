@@ -29,8 +29,11 @@ The watermark actor does (simulates) the work. It receives messages with the con
 The web service API may be used as follows:
 * `accept`: A given content document is delivered to the web service and sent to the watermark actor and returns a ticket.
 * `status`: The id of the ticket may be sent to the server in order to retrieve a new ticket with a new status.
-* `retrieve`: If the status of the ticket is `processed` one may retrieve the document including its watermark with the ticket id. Otherwise the watermark may be empty.  
+* `retrieve`: If the status of the ticket is `processed` one may retrieve the document including its watermark with the ticket id. Otherwise the watermark may be empty.
 
+# Testing
+Use sbt and run test. More tests would have to be written - especially for the worst cases.
+  
 
 
 
